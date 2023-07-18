@@ -1,0 +1,11 @@
+
+# To ignore
+node_modules/**
+plugged/**/
+spell/**
+
+package.json
+package-lock.json
+tags
+yarn.lock
+
