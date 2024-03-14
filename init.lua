@@ -43,7 +43,7 @@ vim.keymap.set( 'i', '<F12>', '<ESC>"=strftime("%d/%m/%Y %X")<CR>po', opts )
 
 -- Enable ctrl-C ctrl-V for copy and paste
 vim.keymap.set( '', '<C-c>', '"+ygv', opts )
-vim.keymap.set( 'i', '<C-v>', '<C-r>+', opts )
+vim.keymap.set( 'i', '<C-v>', '<ESC>:set paste<CR>a<C-r>+<ESC>:set nopaste<CR>a', opts )
 
 -- Open new tab with a terminal
 vim.keymap.set( 'n', '<leader>t', ':tabe<CR>:te<CR>i', opts )
@@ -63,6 +63,7 @@ vim.cmd [[ filetype plugin indent on ]]
 vim.cmd [[ syntax enable ]]
 
 -- Set spell checker by default on Markdown and LaTeX files.
+-- vim.api.nvim_create_autocmd("BufEnter", { pattern = { "*.md", "*.tex" }, command = "setlocal spell spelllang=en_us" })
 vim.api.nvim_create_autocmd("BufEnter", { pattern = { "*.md", "*.tex" }, command = "setlocal spell" })
 
 
@@ -102,8 +103,6 @@ vim.keymap.set( 'n', '<leader>o', 'ciw\\begin{}<Enter>\\end{}<Esc>Pk$P$"apk$', {
 
 
 
-
-
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '$XDG_CONFIG_HOME/nvim/plugged')
@@ -128,8 +127,6 @@ vim.call('plug#begin', '$XDG_CONFIG_HOME/nvim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'neoclide/coc.nvim'
-    -- Plug 'honza/vim-snippets'
-    -- Plug 'SirVer/ultisnips'
     -- ----------
 
 
@@ -141,8 +138,12 @@ vim.call('plug#begin', '$XDG_CONFIG_HOME/nvim/plugged')
     
 
     -- Language extensions
-    Plug 'rust-lang/rust.vim'
-    Plug 'lervag/vimtex'
+    Plug 'rust-lang/rust.vim'           -- rust
+
+    Plug 'lervag/vimtex'                -- LaTeX
+
+    Plug 'jakewvincent/mkdnflow.nvim'   -- Markdown
+    Plug 'nvim-lua/plenary.nvim'        -- needed by mkdnflow.nvim
     -- ----------
 
 
@@ -156,7 +157,6 @@ vim.call('plug#end')
 
 
 
-
 -- Netrw config
 vim.g['netrw_home']	= '$HOME'
 vim.g['netrw_banner'] = 0
@@ -164,26 +164,51 @@ vim.g['netrw_keepdir'] = 1
 -- ----------
 
 
+-- onehalf config
 vim.api.nvim_exec( 'colorscheme onehalfdark', true )
+-- ----------
 
+
+-- Goyo config
 vim.api.nvim_create_autocmd("User", { pattern = "GoyoEnter", command = "Limelight" })
 vim.api.nvim_create_autocmd("User", { pattern = "GoyoLeave", command = "Limelight!" })
+-- ----------
 
+
+-- Startify config
 vim.keymap.set( 'n', '<leader>n', ':tabe<CR>:Startify<CR>', opts )
 vim.g['startify_session_persistence'] = 1
+-- ----------
 
+
+-- rust.vim config
 vim.g['rustfmt_autosave'] = 1
+-- ----------
 
+
+-- tagbar config
 vim.keymap.set( 'n', '<F8>', ':TagbarToggle<CR>', opts )
 vim.g['tagbar_ctags_bin'] = 'C:\\Users\\vale_je\\ctags\\ctags.exe'
+-- ----------
 
+
+-- leap config
 require('leap').add_default_mappings()
+-- ----------
 
 
+-- COC config
 require('coc-config')
 vim.keymap.set( 'n', '<leader>d', ':CocDisable<CR>', { noremap = true, silent = true } )
+-- ----------
 
 
+-- vimtex config
 require('vimtex-config')
+-- ----------
 
+
+-- mkdnflow config
+require('mkdnflow-config')
+-- ----------
 
