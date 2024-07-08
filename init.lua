@@ -126,7 +126,13 @@ vim.call('plug#begin', '$XDG_CONFIG_HOME/nvim/plugged')
     -- Edition and Completion
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-repeat'
     Plug 'neoclide/coc.nvim'
+    -- ----------
+
+
+    -- Debugging
+    Plug 'puremourning/vimspector'
     -- ----------
 
 
@@ -139,6 +145,8 @@ vim.call('plug#begin', '$XDG_CONFIG_HOME/nvim/plugged')
 
     -- Language extensions
     Plug 'rust-lang/rust.vim'           -- rust
+
+    Plug 'JuliaEditorSupport/julia-vim' -- julia
 
     Plug 'lervag/vimtex'                -- LaTeX
 
